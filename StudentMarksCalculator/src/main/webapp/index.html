@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2ff;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #cccccc;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4338ca;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 12px;
+            background: #4338ca;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #312e81;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Student Marks Calculator</h2>
+
+        <form action="MarksServlet" method="post"
+              onsubmit="return validateMarks()">
+
+            <label>Student Name</label>
+            <input type="text" name="studentName"
+                   id="studentName" required maxlength="100">
+
+            <label>Subject 1 Marks</label>
+            <input type="number" name="mark1" id="mark1"
+                   min="0" max="100" step="1" required>
+
+            <label>Subject 2 Marks</label>
+            <input type="number" name="mark2" id="mark2"
+                   min="0" max="100" step="1" required>
+
+            <label>Subject 3 Marks</label>
+            <input type="number" name="mark3" id="mark3"
+                   min="0" max="100" step="1" required>
+
+            <button type="submit">Calculate Result</button>
+        </form>
+    </div>
+
+    <script>
+        function validateMarks() {
+            const fields = ["mark1", "mark2", "mark3"];
+
+            for (const id of fields) {
+                const field = document.getElementById(id);
+                const value = field.value.trim();
+                const mark = Number(value);
+
+                if (value === "" || !Number.isInteger(mark)
+                    || mark < 0 || mark > 100) {
+                    alert("Please enter whole-number marks between 0 and 100.");
+                    field.focus();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

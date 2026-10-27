@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Result</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2ff;
+            padding: 30px;
+        }
+
+        .result-card {
+            max-width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #cccccc;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4338ca;
+        }
+
+        p {
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 5px;
+        }
+
+        .grade {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #15803d;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            background: #4338ca;
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="result-card">
+        <h2>Student Result</h2>
+
+        <p><strong>Student Name:</strong> <span id="name"></span></p>
+        <p><strong>Total Marks:</strong> <span id="total"></span> / 300</p>
+        <p><strong>Average Marks:</strong> <span id="average"></span></p>
+        <p class="grade">Grade: <span id="grade"></span></p>
+
+        <a href="index.html">Calculate Another Result</a>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const name = params.get("name");
+        const total = params.get("total");
+        const average = params.get("average");
+        const grade = params.get("grade");
+
+        const validGrades = ["A", "B", "C", "D", "Fail"];
+
+        if (
+            name === null ||
+            !/^\d+$/.test(total || "") ||
+            Number(total) > 300 ||
+            !/^\d+\.\d{2}$/.test(average || "") ||
+            Number(average) < 0 ||
+            Number(average) > 100 ||
+            !validGrades.includes(grade)
+        ) {
+            document.querySelector(".result-card").innerHTML =
+                "<h2>Invalid Result</h2>" +
+                "<p>Please calculate the result using the form.</p>" +
+                '<a href="index.html">Go Back</a>';
+        } else {
+            document.getElementById("name").textContent = name;
+            document.getElementById("total").textContent = total;
+            document.getElementById("average").textContent = average;
+            document.getElementById("grade").textContent = grade;
+        }
+    </script>
+</body>
+</html>
